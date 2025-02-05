@@ -1,73 +1,44 @@
 import "./App.css";
 import { useEffect } from "react";
 
+import { DragOption } from "./config/const";
+
 function App() {
-  // 配置项
-  const config = {
-    draged: null,
-  };
+  const componentOptions = [
+    {
+      name: "文字",
+      id: "1",
+    },
+    {
+      name: "图片",
+      id: "2",
+    },
+    {
+      name: "列",
+      id: "3",
+    },
+    {
+      name: "分割线",
+      id: "4",
+    },
+    {
+      name: "按钮",
+      id: "5",
+    },
+  ];
 
   const init = () => {
-    console.log("window onload");
-    /* 在可拖动的目标上触发的事件 */
-    const source: any = document.getElementById("source");
-    source.addEventListener("drag", (event: any) => {
-      console.log("dragging");
-    });
-
-    source.addEventListener("dragstart", (event: any) => {
-      // 保存被拖动元素的引用
-      config.draged = event.target;
-      // 设置为半透明
-      event.target.classList.add("dragging");
-    });
-
-    source.addEventListener("dragend", (event: any) => {
-      // 拖动结束，重置透明度
-      event.target.classList.remove("dragging");
-    });
-
-    /* 在放置目标上触发的事件 */
-    const target: any = document.getElementById("droptarget");
-    target.addEventListener(
-      "dragover",
-      (event: any) => {
-        // 阻止默认行为以允许放置
-        event.preventDefault();
-      },
-      false
-    );
-
-    target.addEventListener("dragenter", (event: any) => {
-      // 在可拖动元素进入潜在的放置目标时高亮显示该目标
-      if (event.target.classList.contains("dropzone")) {
-        event.target.classList.add("dragover");
-      }
-    });
-
-    target.addEventListener("dragleave", (event: any) => {
-      // 在可拖动元素离开潜在放置目标元素时重置该目标的背景
-      if (event.target.classList.contains("dropzone")) {
-        event.target.classList.remove("dragover");
-      }
-    });
-
-    target.addEventListener("drop", (event: any) => {
-      // 阻止默认行为（会作为某些元素的链接打开）
-      event.preventDefault();
-      // 将被拖动元素移动到选定的目标元素中
-      if (event.target.classList.contains("dropzone")) {
-        event.target.classList.remove("dragover");
-        // 删除自身
-        // config.draged.parentNode.removeChild(config.draged);
-        // event.target.appendChild(config.draged);
-        const vDom = document.createElement("div");
-        vDom.classList.add("container-box-left-component");
-        event.target.appendChild(vDom);
-      }
+    componentOptions.map((item) => {
+      const source = document.getElementById(item.id);
+      const target = document.getElementById("droptarget");
+      const dragOption = {
+        source,
+        target,
+      };
+      const DragClass = new DragOption(dragOption);
+      console.log(DragClass);
     });
   };
-
   useEffect(() => {
     init();
     console.log("drag_email");
@@ -78,13 +49,25 @@ function App() {
     <div className="container">
       <div className="container-box">
         <div className="container-box-left">
-          <div
+          {/* <div
             className="container-box-left-component"
             draggable="true"
             id="source"
           >
             我是组件
-          </div>
+          </div> */}
+          {componentOptions.map((item) => {
+            return (
+              <div
+                className="container-box-left-component"
+                draggable="true"
+                id={item.id}
+                key={item.id}
+              >
+                {item.name}
+              </div>
+            );
+          })}
         </div>
         <div className="container-box-right">
           <div className="container-box-right-box dropzone" id="droptarget">
