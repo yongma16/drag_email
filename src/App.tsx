@@ -9,22 +9,32 @@ function App() {
   const componentOptions = [
     {
       name: "文字",
+      type: "text",
+      content: "输入文字",
       id: "1",
     },
     {
       name: "图片",
+      type: "image",
+      content: "图片",
       id: "2",
     },
     {
       name: "列",
+      type: "column",
+      content: "",
       id: "3",
     },
     {
       name: "分割线",
+      type: "line",
+      content: "",
       id: "4",
     },
     {
       name: "按钮",
+      type: "button",
+      content: "按钮",
       id: "5",
     },
   ];
@@ -81,7 +91,7 @@ function App() {
   return (
     <div className="container">
       <div className="container-header">
-        <button className="base-button">导出</button>
+        <button className="base-button">导出 邮件html</button>
         <button className="base-button" onClick={onClear}>
           清空
         </button>
