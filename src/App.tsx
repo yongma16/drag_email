@@ -1,9 +1,11 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
-import { DragOption } from "./config/const";
+import { DragOption, DropOption } from "./config/const";
 
 function App() {
+  const sourceRef = useRef(null);
+  const targetRef = useRef(null);
   const componentOptions = [
     {
       name: "文字",
@@ -26,40 +28,70 @@ function App() {
       id: "5",
     },
   ];
-
-  const init = () => {
-    componentOptions.map((item) => {
-      const source = document.getElementById(item.id);
-      const target = document.getElementById("droptarget");
-      const dragOption = {
-        source,
-        target,
-      };
-      const DragClass = new DragOption(dragOption);
-      console.log(DragClass);
-    });
+  const onClear = () => {
+    if (targetRef.current) {
+      // @ts-ignore
+      targetRef.current.innerHTML = "";
+    }
   };
+
+  useMemo(() => {
+    console.log("componentOptions", componentOptions);
+  }, [componentOptions]);
+
   useEffect(() => {
-    init();
-    console.log("drag_email");
-  }, []);
+    let sourceClassArr: any = [];
+    if (sourceRef.current) {
+      componentOptions.map((item) => {
+        const source = document.getElementById(item.id);
+        const dragOption = {
+          source,
+        };
+        const DragClass = new DragOption(dragOption);
+        console.log(DragClass);
+        sourceClassArr.push(DragClass);
+      });
+    }
+
+    return () => {
+      sourceClassArr.forEach((item: any) => {
+        item.removeListen();
+        item = null;
+      });
+      console.log("卸载 sourceRef");
+    };
+  }, [sourceRef]);
+
+  useEffect(() => {
+    let dropClass: any = null;
+    if (targetRef.current) {
+      dropClass = new DropOption({
+        target: targetRef.current,
+      });
+      console.log("dropClass");
+    }
+    return () => {
+      dropClass?.removeListen();
+      dropClass = null;
+      console.log("卸载 targetRef");
+    };
+  }, [targetRef]);
 
   // @ts-ignore
   return (
     <div className="container">
+      <div className="container-header">
+        <button className="base-button">导出</button>
+        <button className="base-button" onClick={onClear}>
+          清空
+        </button>
+      </div>
       <div className="container-box">
-        <div className="container-box-left">
-          {/* <div
-            className="container-box-left-component"
-            draggable="true"
-            id="source"
-          >
-            我是组件
-          </div> */}
+        <div className="container-box-left" ref={sourceRef}>
           {componentOptions.map((item) => {
             return (
               <div
-                className="container-box-left-component"
+                className="container-box-left-component basic-component"
                 draggable="true"
                 id={item.id}
                 key={item.id}
@@ -70,8 +102,12 @@ function App() {
           })}
         </div>
         <div className="container-box-right">
-          <div className="container-box-right-box dropzone" id="droptarget">
-            可以拖到这里
+          <div
+            className="container-box-right-box dropzone"
+            id="droptarget"
+            ref={targetRef}
+          >
+            {/* 可以拖到这里 */}
           </div>
         </div>
       </div>
