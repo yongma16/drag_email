@@ -1,7 +1,7 @@
-interface ConfigType {
-  source: any;
-  target: any;
-}
+// interface ConfigType {
+//   source: any;
+//   target: any;
+// }
 class DragOption {
   public sourceDom = null;
   public targetDom = null;

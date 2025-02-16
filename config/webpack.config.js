@@ -71,6 +71,7 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 // 加载less
 const lessRegex = /\.less$/i;
+const lessModuleRegex = /\.module\.less$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const hasJsxRuntime = (() => {
@@ -212,6 +213,7 @@ module.exports = function(webpackEnv) {
             // Point sourcemap entries to original disk location (format as URL on Windows)
             devtoolModuleFilenameTemplate: isEnvProduction ?
                 info =>
+
                 path
                 .relative(paths.appSrc, info.absoluteResourcePath)
                 .replace(/\\/g, '/') : isEnvDevelopment &&
@@ -511,6 +513,7 @@ module.exports = function(webpackEnv) {
                         // less
                         {
                             test: lessRegex,
+                            exclude: lessModuleRegex,
                             use: getStyleLoaders({
                                     importLoaders: 3,
                                     sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
@@ -714,7 +717,7 @@ module.exports = function(webpackEnv) {
             }), !disableESLintPlugin &&
             new ESLintPlugin({
                 // Plugin options
-                extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
+                extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx', 'scss'],
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
                 failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),

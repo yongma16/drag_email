@@ -1,0 +1,40 @@
+.container-box {
+    display: flex;
+    border: 1px solid #dcdcdc;
+    height: 80vh;
+    margin-top: 20px;
+    .container-box-left {
+        width: 30%;
+        border-right: 1px solid #dcdcdc;
+        .container-box-left-component {
+            border: 1px solid #dcdcdc;
+            width: 100px;
+            height: 60px;
+            border-radius: 8px;
+        }
+    }
+    .basic-component {
+        margin: 2px;
+        cursor: pointer;
+    }
+    .container-box-right {
+        border-left: 1px solid #dcdcdc;
+        width: 70%;
+        .container-box-right-box {
+            background: beige;
+            height: 100%;
+        }
+    }
+}
+
+.container-header {
+    text-align: right;
+    .base-button {
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #dcdcdc;
+        cursor: pointer;
+        margin: 2px;
+        background: #dcdcdc;
+    }
+}

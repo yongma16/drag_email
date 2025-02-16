@@ -1,4 +1,6 @@
-import "./App.css";
+// @ts-ignore
+import "./style/index.scss";
+
 import { useEffect, useRef, useMemo } from "react";
 
 import { DragOption, DropOption } from "./config/const";
