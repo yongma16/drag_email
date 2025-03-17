@@ -133,6 +133,8 @@ class DropOption {
     this.targetDom.addEventListener(
       "dragover",
       (event: any) => {
+        // 拖动结束，去掉dragging
+        event.target.classList.add("dragover");
         // 阻止默认行为以允许放置
         event.preventDefault();
       },
@@ -155,7 +157,7 @@ class DropOption {
     // @ts-ignore
     this.targetDom.addEventListener("dragenter", (event: any) => {
       // 拖动结束，去掉dragging
-      event.target.classList.remove("dragging");
+      event.target.classList.add("dragenter");
     });
   }
 
@@ -163,7 +165,7 @@ class DropOption {
     // @ts-ignore
     this.targetDom.removeEventListener("dragenter", (event: any) => {
       // 拖动结束，去掉dragging
-      event.target.classList.remove("dragging");
+      event.target.classList.remove("dragenter");
     });
   }
 
@@ -190,6 +192,7 @@ class DropOption {
   public dropEvent(event: any) {
     // 阻止默认行为（会作为某些元素的链接打开）
     event.preventDefault();
+    event.target.classList.add("drop-over");
     console.log("add before");
     console.log(
       "dragComponentConfig.currentDragComponent.dom",
@@ -239,9 +242,8 @@ class DropOption {
         vDom.classList.add("base-component");
         event.target.appendChild(vDom);
         console.log("add component", vDom);
-        // 清空当前选中dom
-        dragComponentConfig.currentDragComponent.dom = null;
       }
+      event.target.classList.remove("drop-over");
     }
   }
 

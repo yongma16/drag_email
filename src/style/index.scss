@@ -3,10 +3,10 @@
     border: 1px solid #dcdcdc;
     height: 80vh;
     margin-top: 20px;
-    .container-box-left {
+    &-left {
         width: 30%;
         border-right: 1px solid #dcdcdc;
-        .container-box-left-component {
+        &-component {
             border: 1px solid #dcdcdc;
             width: 100px;
             height: 60px;
@@ -17,12 +17,17 @@
         margin: 2px;
         cursor: pointer;
     }
-    .container-box-right {
+    &-right {
         border-left: 1px solid #dcdcdc;
         width: 70%;
-        .container-box-right-box {
+        &-box {
             background: beige;
             height: 100%;
+            .base-component {
+                border: 1px solid #dcdcdc;
+                width: 100%;
+                height: auto;
+            }
         }
     }
 }

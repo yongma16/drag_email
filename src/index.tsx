@@ -5,6 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 // import "./index.css";
 import App from "./App";
+import "tdesign-react/es/style/index.css"; // 少量公共样式
 // import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
