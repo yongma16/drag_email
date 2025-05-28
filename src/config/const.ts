@@ -223,11 +223,14 @@ class DropOption {
         const type =
           dragComponentConfig.currentDragComponent.dom.getAttribute(
             "data-type"
-          );
+          )||'';
         vDom.classList.add(`component-${type}`);
+        vDom.setAttribute("component_type", type);
+        vDom.setAttribute("draggable", 'true');
         if (type === "text") {
           vDom.innerText = "输入文字";
           vDom.setAttribute("contenteditable", "true");
+          
         } else if (type === "image") {
           const img = document.createElement("img");
           img.setAttribute("src", "/assets/img.svg");
