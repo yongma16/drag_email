@@ -14,8 +14,11 @@
         }
     }
     .basic-component {
-        margin: 2px;
         cursor: pointer;
+        margin: 5px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     &-right {
         border-left: 1px solid #dcdcdc;
